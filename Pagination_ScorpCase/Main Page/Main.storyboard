@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="MainPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="MainViewController" customModule="Pagination_ScorpCase" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UpI-NA-UFW">
+                                <rect key="frame" x="0.0" y="59" width="393" height="801"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdu-ki-hUh">
+                                <rect key="frame" x="320.33333333333331" y="38.666666666666664" width="62.666666666666686" height="20.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No one here :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3S1-Fc-X4t">
+                                <rect key="frame" x="142.66666666666666" y="416" width="108" height="20.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3S1-Fc-X4t" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="G2A-G2-EJx"/>
+                            <constraint firstItem="3S1-Fc-X4t" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="U2o-HJ-Y5E"/>
+                            <constraint firstItem="UpI-NA-UFW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="d0g-x2-Due"/>
+                            <constraint firstItem="UpI-NA-UFW" firstAttribute="top" secondItem="Bdu-ki-hUh" secondAttribute="bottom" id="hXW-Td-wqV"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="UpI-NA-UFW" secondAttribute="trailing" id="kBd-Q0-Ebt"/>
+                            <constraint firstItem="UpI-NA-UFW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="vtl-7T-WoI"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="UpI-NA-UFW" secondAttribute="bottomMargin" id="vux-W1-AdC"/>
+                            <constraint firstAttribute="trailing" secondItem="Bdu-ki-hUh" secondAttribute="trailing" constant="10" id="xD6-Dl-sgh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="countLabel" destination="Bdu-ki-hUh" id="YVm-e8-erX"/>
+                        <outlet property="emptyInfoLabel" destination="3S1-Fc-X4t" id="92T-Di-gnM"/>
+                        <outlet property="tableView" destination="UpI-NA-UFW" id="NR5-tu-xK5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
