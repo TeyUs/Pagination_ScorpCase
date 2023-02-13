@@ -10,7 +10,13 @@ import Foundation
 class MainViewModel {
     weak var view: MainViewController?
     
-    var peopleList: [Person] = []
+    var peopleList: [Person] = [] {
+        didSet {
+            if peopleList.count < 2 * should_standby_people {
+                fetchPeople()
+            }
+        }
+    }
     var next: String? = nil
     
     let should_standby_people = 10 // number of rows kept in reserve
@@ -44,14 +50,21 @@ extension MainViewModel {
     func refreshedTableView() {
         next = nil
         peopleList = []
+        isThereMoreData = true
         fetchPeople()
     }
 }
 
 // MARK: Adding
 extension MainViewModel {
+    func scrollViewDidScroll() {
+        if isThereMoreData {
+            view?.startActivityIndicator()
+        }
+    }
+
     func handleDisplayingRowsNumber(count: Int) {
-        if isThereMoreData, (count - should_standby_people) < peopleList.count {
+        if isThereMoreData, count + should_standby_people > peopleList.count || peopleList.count < 2 * should_standby_people {
             fetchPeople()
         }
     }
@@ -67,11 +80,6 @@ extension MainViewModel {
             if let response = response {
                 self.next = response.next
                 let oldCount = self.peopleList.count
-                // When the next comes nil, people with new ids don't come either. Therefore, it is necessary not to make new requests.
-                if response.next == nil {
-                    self.errorRetrieved(errorDescription: "No more data :(", isCertain: true)
-                    self.isThereMoreData = false
-                }
                 for person in response.people { // Checking unique person id while adding new people.
                     if !self.peopleList.contains(where: {$0.id == person.id }) {
                         self.peopleList.append(person)
@@ -103,7 +111,7 @@ extension MainViewModel {
             }
         } else {    // there are new elements
             if oldCount == 0 { // If there weren't old elements, just view is refreshed.
-                view?.refreshPage()
+                view?.updateTableView()
             } else {   // If there were old elements, new elements are added to old ones.
                 var indexPathArray: [IndexPath] = []
                 for i in oldCount ..< self.peopleList.count {
@@ -112,6 +120,11 @@ extension MainViewModel {
                 view?.addNewPeople(indexPathArray: indexPathArray)
             }
             self.receivedEmptyCounter = 0
+        }
+        // When the next comes nil, people with new ids don't come either. Therefore, it is necessary not to make new requests.
+        if self.next == nil {
+            self.errorRetrieved(errorDescription: "No more data :(", isCertain: true)
+            self.isThereMoreData = false
         }
     }
     

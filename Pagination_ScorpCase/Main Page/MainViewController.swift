@@ -11,23 +11,21 @@ class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyInfoLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refreshed), for: .valueChanged)
+            self.tableView.refreshControl = refreshControl
+        }
+    }
     
     private var activityIndicator: LoadMoreActivityIndicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator = LoadMoreActivityIndicator(scrollView: self.tableView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
         viewModel.view = self
         viewModel.viewDidLoad()
-        activityIndicator = LoadMoreActivityIndicator(scrollView: tableView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshed), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-        
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     @objc private func refreshed(sender: UIRefreshControl) {
@@ -36,10 +34,8 @@ class MainViewController: UIViewController {
         sender.endRefreshing()
     }
     
-    func refreshPage() {
-        let count = viewModel.tableViewNumberOfRowsInSection()
+    func updateTableView() {
         countLabel.text = "count: \(viewModel.tableViewNumberOfRowsInSection())"
-        emptyInfoLabel.isHidden = ( count != 0 )
         tableView.reloadData()
         activityIndicator?.stop()
     }
@@ -52,7 +48,6 @@ class MainViewController: UIViewController {
     
     func popAlert(description: String) {
         activityIndicator?.stop()
-        activityIndicator = nil
         let alert = UIAlertController(title: "Data Source Error", message: description, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -75,15 +70,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewModel.scrollViewDidScroll()
+    }
+    
+    func startActivityIndicator() {
         activityIndicator?.start(closure: nil)
-        activityIndicator?.start {
-            DispatchQueue.global(qos: .utility).async {
-                sleep(3)
-                DispatchQueue.main.async { [weak self] in
-                    self?.activityIndicator?.stop()
-                    self?.activityIndicator = nil
-                }
-            }
-        }
     }
 }

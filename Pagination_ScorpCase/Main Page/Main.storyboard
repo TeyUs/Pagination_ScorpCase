@@ -19,15 +19,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UpI-NA-UFW">
                                 <rect key="frame" x="0.0" y="59" width="393" height="801"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y6W-OH-hqX" id="ZFn-rJ-QEU"/>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="fb4-2X-plt"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdu-ki-hUh">
                                 <rect key="frame" x="320.33333333333331" y="38.666666666666664" width="62.666666666666686" height="20.333333333333336"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No one here :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3S1-Fc-X4t">
-                                <rect key="frame" x="142.66666666666666" y="416" width="108" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,8 +34,6 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3S1-Fc-X4t" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="G2A-G2-EJx"/>
-                            <constraint firstItem="3S1-Fc-X4t" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="U2o-HJ-Y5E"/>
                             <constraint firstItem="UpI-NA-UFW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="d0g-x2-Due"/>
                             <constraint firstItem="UpI-NA-UFW" firstAttribute="top" secondItem="Bdu-ki-hUh" secondAttribute="bottom" id="hXW-Td-wqV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="UpI-NA-UFW" secondAttribute="trailing" id="kBd-Q0-Ebt"/>
@@ -48,7 +44,6 @@
                     </view>
                     <connections>
                         <outlet property="countLabel" destination="Bdu-ki-hUh" id="YVm-e8-erX"/>
-                        <outlet property="emptyInfoLabel" destination="3S1-Fc-X4t" id="92T-Di-gnM"/>
                         <outlet property="tableView" destination="UpI-NA-UFW" id="NR5-tu-xK5"/>
                     </connections>
                 </viewController>
